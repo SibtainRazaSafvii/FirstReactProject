@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react'
 import './App.css'
 import Search from './components/search'
 import Spinner from './components/Spinner'
+import MovieCard from './components/MovieCard'
 
 const url = 'https://api.themoviedb.org/3/discover/movie?&language=en-US&sort_by=popularity.desc';
 const options = {
@@ -73,8 +74,8 @@ function App() {
   ) : (
     <ul>
       {movieList.map((movie) => (
-         <p key={movie.id} className="text-white">
-          {movie.title}</p>
+        <MovieCard key={movie.id} movie={movie} />
+
         
       ))}
     </ul>
