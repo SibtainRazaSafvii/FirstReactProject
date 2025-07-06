@@ -1,4 +1,4 @@
-import {Client,Database,ID, Query } from "appwrite";
+import {Client,Databases,ID, Query } from "appwrite";
 
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 
@@ -9,7 +9,7 @@ const client = new Client()
  .setEndpoint("https://fra.cloud.appwrite.io/v1")
  .setProject(PROJECT_ID)
 
-const database = new Database (client);
+const database = new Databases (client);
 
 export const updateSearchCount = async (searchTerm,movie) => {
     // use Appwrite as the apii to check if the search term exist in the database 
@@ -40,3 +40,17 @@ export const updateSearchCount = async (searchTerm,movie) => {
     }
 
 } 
+
+export const getTrendingMovies = async () => {
+    try{
+
+        const result = await database.listDocuments(DATABASE_ID,COLLECTION_ID,[
+            Query.limit(5),
+            Query.orderDesc('count')
+            
+        ])
+        return result.documents;
+    } catch (error){
+        console.log("error")
+    }
+}
